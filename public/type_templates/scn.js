@@ -106,9 +106,9 @@ export default ctx => {
         return async (url, position, quaternion, scale, components) => {
           components = mergeComponents(components, objectComponents);
           
-          console.log('scn add app', world?.appManager, {
-            url, position, quaternion, scale, components,
-          });
+          // console.log('scn add app', world?.appManager, {
+          //   url, position, quaternion, scale, components,
+          // });
           await world.appManager.addAppAsync(
             url,
             position,
