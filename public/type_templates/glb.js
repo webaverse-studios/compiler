@@ -43,6 +43,7 @@ export default ctx => {
     useExport,
     useLoaders,
     usePhysics,
+    usePhysicsTracker,
   } = ctx;
 
   const app = useApp();
@@ -53,6 +54,7 @@ export default ctx => {
   const {webaverseRenderer, playersManager} = engine;
   const {renderer} = webaverseRenderer;
   const physics = usePhysics();
+  const physicsTracker = usePhysicsTracker();
   const localPlayer = playersManager.getLocalPlayer();
 
   const srcUrl = ${this.srcUrl};
@@ -251,6 +253,7 @@ export default ctx => {
         const _addPhysics = async () => {
           const physicsId = physics.addGeometry(o);
           physicsIds.push(physicsId);
+          physicsTracker.addAppPhysicsObject(app, physicsId);
         };
 
         _addPhysics();
@@ -371,6 +374,7 @@ export default ctx => {
   useCleanup(() => {
     for (const physicsId of physicsIds) {
       physics.removeGeometry(physicsId);
+      physicsTracker.removeAppPhysicsObject(app, physicsId);
     }
     _unwear();
   });
