@@ -127,21 +127,21 @@ export default ctx => {
       localPlayer.setAvatarApp(app);
     };
 
-    frameCb = ({timestamp, timeDiff}) => {
-      if (!avatarRenderer.isControlled) {
-        avatarRenderer.scene.updateMatrixWorld();
-        avatarRenderer.update(timestamp, timeDiff);
-      }
-    };
+    // frameCb = ({timestamp, timeDiff}) => {
+    //   if (!avatarRenderer.isControlled) {
+    //     avatarRenderer.scene.updateMatrixWorld();
+    //     avatarRenderer.update(timestamp, timeDiff);
+    //   }
+    // };
   })());
 
   useActivate(() => {
     activateCb && activateCb();
   });
 
-  useFrame((e) => {
-    frameCb && frameCb(e);
-  });
+  // useFrame((e) => {
+  //   frameCb && frameCb(e);
+  // });
 
   // controlled tracking
   const _setPhysicsEnabled = enabled => {
