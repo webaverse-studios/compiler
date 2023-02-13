@@ -117,7 +117,7 @@ export default ctx => {
             components,
             // instanceId = getRandomString(),
           );
-          console.log('add app 2');
+          // console.log('add app 2');
         };
       // }
       // default: {
