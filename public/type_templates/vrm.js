@@ -1,4 +1,4 @@
-// import * as THREE from 'three';
+import * as THREE from 'three';
 
 // const q180 = new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(0, 1, 0), Math.PI);
 
@@ -30,7 +30,7 @@ export default ctx => {
     useTempManager,
     useEngine,
   } = ctx;
-  const THREE = ctx.useTHREE();
+  // const THREE = ctx.useTHREE();
   const app = useApp();
   const camera = useCamera();
   const physics = usePhysics();
