@@ -1,15 +1,22 @@
 // import * as THREE from 'three';
-import metaversefile from 'metaversefile';
-const {useApp, useNpcManager, useCleanup} = metaversefile;
+// import metaversefile from 'metaversefile';
+// const {useApp, useNpcManager, useCleanup} = metaversefile;
 
-export default e => {
+export default ctx => {
+  const {
+    useApp,
+    useNpcManager,
+    useCleanup,
+  } = ctx;
   const app = useApp();
   const npcManager = useNpcManager();
 
   const srcUrl = ${this.srcUrl};
 
-  e.waitUntil((async () => {
-    await npcManager.addNpcApp(app, srcUrl);
+  app.npc = null;
+  ctx.waitUntil((async () => {
+    const npc = await npcManager.addNpcApp(app, srcUrl);
+    app.npc = npc;
   })());
 
   useCleanup(() => {
