@@ -77,7 +77,7 @@ export default ctx => {
     // globalThis.app = app;
     // globalThis.avatarRenderer = avatarRenderer;
 
-     const _addPhysics = () => {
+     /* const _addPhysics = () => {
       const {height, width} = app.avatarRenderer.getAvatarSize();
       const widthPadding = 0.5; // Padding around the avatar since the base width is computed from shoulder distance
 
@@ -105,8 +105,10 @@ export default ctx => {
     };
 
     if (app.getComponent('physics')) {
+      console.log('load physics');
+      debugger;
       _addPhysics();
-    }
+    } */
 
     // we don't want to have per-frame bone updates for unworn avatars
     const _disableSkeletonMatrixUpdates = () => {
