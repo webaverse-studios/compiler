@@ -65,8 +65,8 @@ export default ctx => {
   app.glb = null;
   const animationMixers = [];
   const uvScrolls = [];
-  const physicsIds = [];
-  app.physicsIds = physicsIds;
+  const physicsObjects = [];
+  // app.physicsObjects = physicsObjects;
   
   // glb state
   let animations;
@@ -251,9 +251,9 @@ export default ctx => {
       
       if (appHasPhysics) {
         const _addPhysics = async () => {
-          const physicsId = physics.addGeometry(o);
-          physicsIds.push(physicsId);
-          physicsTracker.addAppPhysicsObject(app, physicsId);
+          const physicsObject = physics.addGeometry(o);
+          physicsObjects.push(physicsObject);
+          physicsTracker.addAppPhysicsObject(app, physicsObject);
         };
 
         _addPhysics();
@@ -372,9 +372,9 @@ export default ctx => {
   });
   
   useCleanup(() => {
-    for (const physicsId of physicsIds) {
-      physics.removeGeometry(physicsId);
-      physicsTracker.removeAppPhysicsObject(app, physicsId);
+    for (const physicsObject of physicsObjects) {
+      physics.removeGeometry(physicsObject);
+      physicsTracker.removeAppPhysicsObject(app, physicsObject);
     }
     _unwear();
   });
