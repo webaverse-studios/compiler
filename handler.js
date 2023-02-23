@@ -6,15 +6,15 @@ import etag from 'etag';
 import {getCwd} from './util.js'
 import compile from './scripts/compile.js'
 
-const _proxy = (req, res, u) => new Promise((resolve, reject) => {
-  console.log('redirect asset 1', {u});
-
+const _proxy = async (req, res, u) => {
   res.setHeader('Access-Control-Allow-Methods', '*');
   res.setHeader('Access-Control-Allow-Headers', '*');
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Cross-Origin-Opener-Policy', 'unsafe-none');
   res.setHeader('Cross-Origin-Embedder-Policy', 'require-corp');
   res.setHeader('Cross-Origin-Resource-Policy', 'cross-origin');
+  // res.setHeader('Cache-Control', 'max-age=0, private, must-revalidate');
+  res.setHeader('Cache-Control', 'no-cache');
 
   if (/^\//.test(u)) {
     const cwd = getCwd();
@@ -22,20 +22,27 @@ const _proxy = (req, res, u) => new Promise((resolve, reject) => {
     
     // console.log('fetch file locally', {cwd, u});
 
-    const rs = fs.createReadStream(u);
-    rs.pipe(res);
-    rs.on('error', err => {
-      console.warn('got error', err.stack);
-      reject(err);
-    });
+    const resultBuffer = await fs.promises.readFile(u);
+    
+    const et = etag(resultBuffer);
+    res.setHeader('ETag', et);
+
+    if (req.headers['if-none-match'] && req.headers['if-none-match'].split(',').includes(et)) {
+      console.log('304 asset', u);
+      res.statusCode = 304;
+      res.end();
+    } else {
+      console.log('200 asset', u);
+      res.end(resultBuffer);
+    }
   } else {
+    // console.log('redirect asset', {u});
+    
     res.redirect(u);
   }
-});
+};
 
 export async function handler(req, res) {
-  // console.log('got request', req.url);
-
   /* if (/\.glb/.test(req.url)) {
     console.log('\n\n\n\ncompile', req.headers, req.url, '\n\n\n\n');
   } */
@@ -49,14 +56,11 @@ export async function handler(req, res) {
     const dest = req.headers['x-fetch-dest'] ??
       req.headers['sec-fetch-dest'] ??
       '';
-    console.log('got dest', dest);
-    // const accept = req.headers['accept'];
+    // console.log('got dest', dest);
     if (
       ['empty', 'image'].includes(dest) ||
-        dest.includes('github.io')
-      ) {
-      // console.log('\n\n\n\ncompile', req.headers, req.url, '\n\n\n\n');
-      
+      dest.includes('github.io')
+    ) {
       try {
         await _proxy(req, res, u);
       } catch (err) {
@@ -74,29 +78,30 @@ export async function handler(req, res) {
         const et = etag(resultBuffer);
         res.setHeader('ETag', et);
         // check if-none-match (multiple)
+        res.setHeader('Content-Type', 'application/javascript');
         if (req.headers['if-none-match'] && req.headers['if-none-match'].split(',').includes(et)) {
+          // console.log('304', u);
+          
           res.statusCode = 304;
           res.setHeader('Access-Control-Allow-Methods', '*');
           res.setHeader('Access-Control-Allow-Headers', '*');
 
           // res.setHeader('Cache-Control', 'public, max-age=31536000, immutable');
           res.setHeader('Cache-Control', 'no-cache');
+          // res.setHeader('Cache-Control', 'max-age=0, private, must-revalidate');
           res.setHeader('Access-Control-Allow-Origin', '*');
           res.setHeader('Cross-Origin-Opener-Policy', 'unsafe-none');
           res.setHeader('Cross-Origin-Embedder-Policy', 'require-corp');
           res.setHeader('Cross-Origin-Resource-Policy', 'cross-origin');
-          console.log('304', u);
           res.end();
         } else {
-          console.log('200', u);
-          res.setHeader('Content-Type', 'application/javascript');
-
-
+          // console.log('200', u);
           res.setHeader('Access-Control-Allow-Methods', '*');
           res.setHeader('Access-Control-Allow-Headers', '*');
 
           // res.setHeader('Cache-Control', 'public, max-age=31536000, immutable');
           res.setHeader('Cache-Control', 'no-cache');
+          // res.setHeader('Cache-Control', 'max-age=0, private, must-revalidate');
           res.setHeader('Access-Control-Allow-Origin', '*');
           res.setHeader('Cross-Origin-Opener-Policy', 'unsafe-none');
           res.setHeader('Cross-Origin-Embedder-Policy', 'require-corp');
