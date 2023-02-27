@@ -14,7 +14,7 @@ const Home = () => {
   }, []);
 
   return (
-    <pre>{baseUrl}URL_TO_COMPILE</pre>
+    <pre>{baseUrl}api/?u=URL_TO_COMPILE</pre>
   );
 };
 export const Index = () => {
