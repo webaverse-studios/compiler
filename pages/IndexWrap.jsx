@@ -5,8 +5,10 @@ import {Index} from './Index.jsx';
 import '../styles/globals.css';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
+console.log('render 1', {root});
 root.render(
   <React.StrictMode>
     <Index />
   </React.StrictMode>,
 );
+console.log('render 2', {root});
