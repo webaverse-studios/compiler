@@ -35,15 +35,17 @@ const _proxy = (req, res, u) => new Promise((resolve, reject) => {
 });
 
 export default async function handler(req, res) {
-  console.log('got request', req.url);
+  console.log('got request', req.url.query.u, req.url);
   /* if (/\.glb/.test(req.url)) {
     console.log('\n\n\n\ncompile', req.headers, req.url, '\n\n\n\n');
   } */
   // console.log('got url', {u: req.url});
 
-  const u = req.url
-    .replace(/^\/([a-zA-Z0-9]+:)/, '$1') // remove initial slash
-    .replace(/^([a-zA-Z0-9]+:\/(?!\/))/, '$1/'); // add second slash to protocol, since it is truncated
+  // get teh 'u' query param
+  const u = req.query.u;
+  // const u = req.url
+  //   .replace(/^\/([a-zA-Z0-9]+:)/, '$1') // remove initial slash
+  //   .replace(/^([a-zA-Z0-9]+:\/(?!\/))/, '$1/'); // add second slash to protocol, since it is truncated
   if (u) {
     // XXX note: sec-fetch-dest is not supported by Safari
     const dest = req.headers['sec-fetch-dest'];
