@@ -4,7 +4,10 @@ import React, {useEffect, useState} from 'react';
 http://localhost:3000/https://webaverse.github.io/procgen-assets/avatars/male-procgen.vrm
 */
 
+console.log('load top');
+
 const Home = () => {
+  console.log('render Home');
   const [baseUrl, setBaseUrl] = useState('');
   useEffect(() => {
     setBaseUrl(window.location.href);
@@ -15,6 +18,7 @@ const Home = () => {
   );
 };
 export const Index = () => {
+  console.log('render Index');
   return (
     <Home />
   );
