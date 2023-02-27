@@ -2,6 +2,7 @@
 import fs from 'fs';
 import http from 'http';
 import https from 'https';
+import url from 'url';
 // import child_process from 'child_process';
 
 import express from 'express';
@@ -53,11 +54,15 @@ const _setHeaders = res => {
     // console.log('compiler got request', req);
 
     _setHeaders(res);
-    
+
+    const {pathname} = url.parse(req.url);
+
     if (req.method === 'OPTIONS') {
       res.end();
-    } else {
+    } else if (/^\/api\/compile(?:|$)/.test(pathname)) {
       handler(req, res);
+    } else {
+      next();
     }
   });
 
