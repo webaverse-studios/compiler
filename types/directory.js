@@ -1,6 +1,6 @@
 import path from 'path';
 import fs from 'fs';
-import fetch from 'node-fetch';
+// import fetch from 'node-fetch';
 import {fillTemplate, createRelativeFromAbsolutePath, getCwd} from '../util.js';
 import metaversefileLoader from './metaversefile.js';
 

@@ -2,7 +2,7 @@ import path from 'path';
 import fs from 'fs';
 import url from 'url';
 import Babel from '@babel/core';
-import fetch from 'node-fetch';
+// import fetch from 'node-fetch';
 import dataUrls from 'data-urls';
 import {parseIdHash, getCwd} from '../util.js';
 

@@ -2,13 +2,12 @@
   "name": "@webaverse-studios/compiler",
   "version": "0.0.32",
   "description": "",
-  "main": "next dev",
+  "main": "vite dev",
   "type": "module",
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint --fix"
+    "dev": "vite dev",
+    "build": "vite build",
+    "start": "vite start"
   },
   "repository": {
     "type": "git",
@@ -29,16 +28,14 @@
     "esbuild": "^0.15.10",
     "etag": "^1.8.1",
     "mime-types": "^2.1.32",
-    "next": "12.3.1",
-    "node-fetch": "^3.2.10",
     "pako": "^2.0.4",
     "postcss": "^8.4.17",
     "postcss-modules": "^5.0.0",
     "typescript": "^4.9.5",
-    "unix-path": "^0.2.0"
+    "unix-path": "^0.2.0",
+    "vite": "^4.0.0"
   },
   "devDependencies": {
-    "eslint": "8.25.0",
-    "eslint-config-next": "12.3.1"
+    "eslint": "8.25.0"
   }
 }
