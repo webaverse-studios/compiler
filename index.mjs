@@ -55,7 +55,7 @@ const _setHeaders = res => {
 
     _setHeaders(res);
 
-    const {pathname} = url.parse(req.url);
+    // const {pathname} = url.parse(req.url);
 
     if (req.method === 'OPTIONS') {
       res.end();
