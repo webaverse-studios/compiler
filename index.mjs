@@ -59,7 +59,8 @@ const _setHeaders = res => {
 
     if (req.method === 'OPTIONS') {
       res.end();
-    } else if (/^\/api\/compile(?:|$)/.test(pathname)) {
+    } else if (/^\/api(?:|$)/.test(pathname)) {
+      req.url = req.url.slice('/api'.length);
       handler(req, res);
     } else {
       next();
