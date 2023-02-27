@@ -35,7 +35,7 @@ const _proxy = (req, res, u) => new Promise((resolve, reject) => {
 });
 
 export default async function handler(req, res) {
-  console.log('got request', req.url.query.u, req.url);
+  console.log('got request', req.query.u, req.url);
   /* if (/\.glb/.test(req.url)) {
     console.log('\n\n\n\ncompile', req.headers, req.url, '\n\n\n\n');
   } */
