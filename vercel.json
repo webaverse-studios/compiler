@@ -1,6 +1,6 @@
 {
   "installCommand": "npm install --omit=dev",
-  "buildCommand": "next build",
+  "buildCommand": "vite build",
   "headers": [
     {
       "source": "/(.*)",
