@@ -41,14 +41,15 @@ export default async function handler(req, res) {
   } */
   // console.log('got url', {u: req.url});
 
-  // get teh 'u' query param
   const u = req.query.u;
   // const u = req.url
   //   .replace(/^\/([a-zA-Z0-9]+:)/, '$1') // remove initial slash
   //   .replace(/^([a-zA-Z0-9]+:\/(?!\/))/, '$1/'); // add second slash to protocol, since it is truncated
   if (u) {
     // XXX note: sec-fetch-dest is not supported by Safari
-    const dest = req.headers['sec-fetch-dest'] ?? '';
+    const dest = req.headers['x-fetch-dest'] ??
+      req.headers['sec-fetch-dest'] ??
+      '';
     // const accept = req.headers['accept'];
     if (/* /^image\//.test(accept) || */['empty', 'image'].includes(dest)) {
       console.log('\n\n\n\ncompile', req.headers, req.url, '\n\n\n\n');
