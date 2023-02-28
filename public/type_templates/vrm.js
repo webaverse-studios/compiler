@@ -61,8 +61,9 @@ export default ctx => {
       gltfLoader.parse(arrayBuffer, srcUrl, accept, reject);
     });
     // console.log('got gltf', gltf);
+    const gltfNodes = await gltf.parser.getDependencies('node');
 
-    const avatarQuality = avatarManager.makeQuality(gltf);
+    const avatarQuality = avatarManager.makeQuality(gltf, gltfNodes);
     // avatarQuality = avatarManager.makeQuality({
     //   arrayBuffer,
     //   srcUrl,
