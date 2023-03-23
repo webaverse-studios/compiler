@@ -80,7 +80,16 @@ export const fetchFileFromId = async (id, importer, encoding = null) => {
 
 export const fillTemplate = function(templateString, templateVars) {
   // eslint-disable-next-line no-new-func
-  return new Function("return `"+templateString +"`;").call(templateVars);
+  // return new Function("return `"+templateString +"`;").call(templateVars);
+  for (const k in templateVars) {
+    const v = templateVars[k];
+    console.log('replace', k, v);
+    if (k === undefined || v === undefined) {
+      throw new Error(`undefined template var: ${k}`);
+    }
+    templateString = templateString.replace(new RegExp(`\\$\\{this\\.${k}\\}`, 'g'), v);
+  }
+  return templateString;
 };
 
 export const createRelativeFromAbsolutePath = path => {
