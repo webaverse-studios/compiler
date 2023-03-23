@@ -5,10 +5,9 @@ import {fillTemplate, createRelativeFromAbsolutePath, getCwd} from '../util.js';
 import metaversefileLoader from './metaversefile.js';
 
 // const dirname = path.dirname(import.meta.url.replace(/^[a-z]+:\/\//, ''));
-// const templateString = fs.readFileSync(path.join(dirname, '..', 'type_templates', 'html.js'));
-const templateString = fs.readFileSync(path.resolve('.', 'public', 'type_templates', 'html.js'), 'utf8');
+// const templateString = fs.readFileSync(path.resolve('.', 'public', 'type_templates', 'html.js'), 'utf8');
 
-const _resolveHtml = async (id, importer) => {
+/* const _resolveHtml = async (id, importer) => {
   const code = fillTemplate(templateString, {
     srcUrl: JSON.stringify(id),
   });
@@ -16,7 +15,7 @@ const _resolveHtml = async (id, importer) => {
     code,
     map: null,
   };
-};
+}; */
 
 export default {
   async resolveId(id, importer) {
@@ -94,7 +93,7 @@ export default {
           }
         }
       } else {
-        throw new Error(`not a directory: "${id}"`)
+        throw new Error(`not a directory: "${id}" -> "${idFullPath}"`)
       }
     } else {
       throw new Error(`unknown path format: "${id}"`)
