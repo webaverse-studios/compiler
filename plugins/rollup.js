@@ -35,10 +35,13 @@ import npc from '../types/npc.js';
 import mob from '../types/mob.js';
 import react from '../types/react.js';
 import group from '../types/group.js';
-import vircadia from '../types/vircadia.js';
+// import vircadia from '../types/vircadia.js';
 import directory from '../types/directory.js';
-import zine from '../types/zine.js';
+import zine from '../types/zine/zine.js';
+import zineskybox from '../types/zine/zineskybox.js';
+import zinestory from '../types/zine/zinestory.js';
 import item from '../types/item.js';
+import portal from '../types/portal.js';
 
 // import upath from 'unix-path';
 import {getCwd, readFile} from '../util.js';
@@ -79,9 +82,12 @@ const loaders = {
   react,
   group,
   wind,
-  vircadia,
+  // vircadia,
   zine,
+  zineskybox,
+  zinestory,
   item,
+  portal,
   '': directory,
 };
 
@@ -98,7 +104,7 @@ const _getType = id => {
     }
     let extension;
     let match2;
-    if (match2 = type.match(/^application\/(light|text|rendersettings|spawnpoint|lore|quest|npc|mob|react|group|wind|vircadia|item)$/)) {
+    if (match2 = type.match(/^application\/(light|text|rendersettings|spawnpoint|lore|quest|npc|mob|react|group|wind|item|portal|zine|zineskybox|zinestory)$/)) {
       extension = match2[1];
     } else if (match2 = type.match(/^application\/(javascript)$/)) {
       extension = 'js';
