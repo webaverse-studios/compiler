@@ -1,8 +1,8 @@
 import path from 'path';
 import fs from 'fs';
-import {fillTemplate, createRelativeFromAbsolutePath, parseIdHash} from '../util.js';
+import {fillTemplate, createRelativeFromAbsolutePath, parseIdHash} from '../../util.js';
 
-const templateString = fs.readFileSync(path.resolve('.', 'public', 'type_templates', 'zine.js'), 'utf8');
+const templateString = fs.readFileSync(path.resolve('.', 'public', 'type_templates', 'zine', 'zine.js'), 'utf8');
 
 export default {
   async load(id) {
