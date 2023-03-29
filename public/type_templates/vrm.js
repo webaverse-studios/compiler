@@ -19,38 +19,38 @@ export default ctx => {
   // console.log('got context', ctx);
   const {
     useApp,
-    useFrame,
+    // useFrame,
     useActivate,
-    useCleanup,
-    useCamera,
-    usePhysics,
+    // useCleanup,
+    // useCamera,
+    // usePhysics,
     useExport,
     useLoaders,
     useAvatarManager,
-    useTempManager,
+    // useTempManager,
     useEngine,
   } = ctx;
   // const THREE = ctx.useTHREE();
   const app = useApp();
-  const camera = useCamera();
-  const physics = usePhysics();
+  // const camera = useCamera();
+  // const physics = usePhysics();
   const loaders = useLoaders();
   const avatarManager = useAvatarManager();
-  const tmpManager = useTempManager();
+  // const tmpManager = useTempManager();
   const engine = useEngine();
 
-  const localVector = tmpManager.get(THREE.Vector3);
-  const localVector2 = tmpManager.get(THREE.Vector3);
-  const localQuaternion = tmpManager.get(THREE.Quaternion);
-  const localMatrix = tmpManager.get(THREE.Matrix4);
+  // const localVector = tmpManager.get(THREE.Vector3);
+  // const localVector2 = tmpManager.get(THREE.Vector3);
+  // const localQuaternion = tmpManager.get(THREE.Quaternion);
+  // const localMatrix = tmpManager.get(THREE.Matrix4);
 
   const srcUrl = ${this.srcUrl};
-  const quality = app.getComponent('quality') ?? undefined;
+  // const quality = app.getComponent('quality') ?? undefined;
 
-  let avatarRenderer = null;
+  // let avatarRenderer = null;
   let physicsIds = [];
   let activateCb = null;
-  let frameCb = null;
+  // let frameCb = null;
   ctx.waitUntil((async () => {
     const {
       gltfLoader,
@@ -146,7 +146,7 @@ export default ctx => {
   // });
 
   // controlled tracking
-  const _setPhysicsEnabled = enabled => {
+  /* const _setPhysicsEnabled = enabled => {
     if (enabled) {
       for (const physicsId of physicsIds) {
         physics.disableGeometry(physicsId);
@@ -158,7 +158,7 @@ export default ctx => {
         physics.enableGeometryQueries(physicsId);
       }
     }
-  };
+  }; */
   /* const _setControlled = controlled => {
     avatarRenderer && avatarRenderer.setControlled(controlled);
     _setPhysicsEnabled(controlled);
@@ -172,12 +172,12 @@ export default ctx => {
   }); */
 
   // cleanup
-  useCleanup(() => {
+  /* useCleanup(() => {
     for (const physicsId of physicsIds) {
       physics.removeGeometry(physicsId);
     }
     physicsIds.length = 0;
-  });
+  }); */
 
   useExport(async (opts) => {
     // console.log('use export', JSON.stringify(opts));
