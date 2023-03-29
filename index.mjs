@@ -76,5 +76,5 @@ const _setHeaders = res => {
     httpServer.on('error', reject);
   });
   // console.log('pid', process.pid);
-  console.log(`  > Compiler: http${isHttps ? 's' : ''}://${SERVER_NAME}:${port}/`);
+  console.log(`  > Compiler ready: http${isHttps ? 's' : ''}://${SERVER_NAME}:${port}/`);
 })();
