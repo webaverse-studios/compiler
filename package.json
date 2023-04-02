@@ -25,7 +25,6 @@
     "@types/react": "^18.0.25",
     "@types/react-dom": "18.0.9",
     "data-urls": "^3.0.1",
-    "esbuild": "^0.15.10",
     "etag": "^1.8.1",
     "mime-types": "^2.1.32",
     "pako": "^2.0.4",
@@ -35,7 +34,7 @@
     "react-dom": "18.2.0",
     "typescript": "^4.9.5",
     "unix-path": "^0.2.0",
-    "vite": "^4.0.0"
+    "vite": "^4.2.1"
   },
   "devDependencies": {
     "eslint": "8.25.0"
