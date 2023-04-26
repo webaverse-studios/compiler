@@ -44,6 +44,7 @@ export default ctx => {
     useLoaders,
     usePhysics,
     usePhysicsTracker,
+    useLocalPlayer
   } = ctx;
 
   const app = useApp();
@@ -51,12 +52,11 @@ export default ctx => {
   const {gltfLoader, exrLoader} = useLoaders();
   // const renderer = useRenderer();
   const engine = useEngine();
-  const {webaverseRenderer, playersManager} = engine;
+  const {webaverseRenderer} = engine;
   const {renderer} = webaverseRenderer;
   const physics = usePhysics();
   const physicsTracker = usePhysicsTracker();
-  const localPlayer = playersManager.getLocalPlayer();
-
+  
   const srcUrl = ${this.srcUrl};
   for (const {key, value} of components) {
     app.setComponent(key, value);
@@ -97,9 +97,9 @@ export default ctx => {
       const envMapComponent = app.getComponent('envMap');
 
       // * true by default
-      let appHasPhysics = true;
+      let appHasPhysics = !!physics; // companion app does not have physic
       const hasPhysicsComponent = app.hasComponent('physics');
-      if (hasPhysicsComponent) {
+      if (appHasPhysics && hasPhysicsComponent) {
         const physicsComponent = app.getComponent('physics');
         appHasPhysics = physicsComponent;
       }
@@ -310,9 +310,12 @@ export default ctx => {
   
   const _unwear = () => {
     if (sitSpec) {
-      const sitAction = localPlayer.getAction('sit');
-      if (sitAction) {
-        localPlayer.removeAction('sit');
+      if (sitSpec) {
+        const localPlayer = useLocalPlayer();
+        const oldSitAction = localPlayer.actionManager.getActionType('sit');
+        if (oldSitAction) {
+          oldSitAction && localPlayer.actionManager.removeAction(oldSitAction);
+        }
       }
     }
   };
@@ -341,7 +344,7 @@ export default ctx => {
             controllingId: instanceId,
             controllingBone: rideBone,
           };
-          localPlayer.setControlAction(sitAction);
+          localPlayer.actionManager.addAction(sitAction);
         }
       }
     } else {
