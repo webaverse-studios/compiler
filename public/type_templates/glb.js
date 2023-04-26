@@ -310,12 +310,10 @@ export default ctx => {
   
   const _unwear = () => {
     if (sitSpec) {
-      if (sitSpec) {
-        const localPlayer = useLocalPlayer();
-        const oldSitAction = localPlayer.actionManager.getActionType('sit');
-        if (oldSitAction) {
-          oldSitAction && localPlayer.actionManager.removeAction(oldSitAction);
-        }
+      const localPlayer = useLocalPlayer();
+      const oldSitAction = localPlayer.actionManager.getActionType('sit');
+      if (oldSitAction) {
+        oldSitAction && localPlayer.actionManager.removeAction(oldSitAction);
       }
     }
   };
