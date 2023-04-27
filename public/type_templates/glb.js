@@ -312,9 +312,7 @@ export default ctx => {
     if (sitSpec) {
       const localPlayer = useLocalPlayer();
       const oldSitAction = localPlayer.actionManager.getActionType('sit');
-      if (oldSitAction) {
-        oldSitAction && localPlayer.actionManager.removeAction(oldSitAction);
-      }
+      oldSitAction && localPlayer.actionManager.removeAction(oldSitAction);
     }
   };
   app.addEventListener('wearupdate', e => {
