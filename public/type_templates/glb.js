@@ -44,6 +44,7 @@ export default ctx => {
     useLoaders,
     usePhysics,
     usePhysicsTracker,
+    useLocalPlayer
   } = ctx;
 
   const app = useApp();
@@ -51,12 +52,11 @@ export default ctx => {
   const {gltfLoader, exrLoader} = useLoaders();
   // const renderer = useRenderer();
   const engine = useEngine();
-  const {webaverseRenderer, playersManager} = engine;
+  const {webaverseRenderer} = engine;
   const {renderer} = webaverseRenderer;
   const physics = usePhysics();
   const physicsTracker = usePhysicsTracker();
-  const localPlayer = playersManager.getLocalPlayer();
-
+  
   const srcUrl = ${this.srcUrl};
   for (const {key, value} of components) {
     app.setComponent(key, value);
@@ -97,9 +97,9 @@ export default ctx => {
       const envMapComponent = app.getComponent('envMap');
 
       // * true by default
-      let appHasPhysics = true;
+      let appHasPhysics = !!physics; // companion app does not have physic
       const hasPhysicsComponent = app.hasComponent('physics');
-      if (hasPhysicsComponent) {
+      if (appHasPhysics && hasPhysicsComponent) {
         const physicsComponent = app.getComponent('physics');
         appHasPhysics = physicsComponent;
       }
@@ -310,10 +310,9 @@ export default ctx => {
   
   const _unwear = () => {
     if (sitSpec) {
-      const sitAction = localPlayer.getAction('sit');
-      if (sitAction) {
-        localPlayer.removeAction('sit');
-      }
+      const localPlayer = useLocalPlayer();
+      const oldSitAction = localPlayer.actionManager.getActionType('sit');
+      oldSitAction && localPlayer.actionManager.removeAction(oldSitAction);
     }
   };
   app.addEventListener('wearupdate', e => {
@@ -341,7 +340,7 @@ export default ctx => {
             controllingId: instanceId,
             controllingBone: rideBone,
           };
-          localPlayer.setControlAction(sitAction);
+          localPlayer.actionManager.addAction(sitAction);
         }
       }
     } else {
@@ -349,7 +348,7 @@ export default ctx => {
     }
   });
   
-  useFrame(({timestamp, timeDiff}) => {
+  useFrame((timestamp, timeDiff) => {
     const _updateAnimation = () => {
       const deltaSeconds = timeDiff / 1000;
       for (const mixer of animationMixers) {
