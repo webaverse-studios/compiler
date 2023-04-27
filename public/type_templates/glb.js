@@ -348,7 +348,7 @@ export default ctx => {
     }
   });
   
-  useFrame(({timestamp, timeDiff}) => {
+  useFrame((timestamp, timeDiff) => {
     const _updateAnimation = () => {
       const deltaSeconds = timeDiff / 1000;
       for (const mixer of animationMixers) {
