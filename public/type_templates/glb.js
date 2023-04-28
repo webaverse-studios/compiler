@@ -44,7 +44,8 @@ export default ctx => {
     useLoaders,
     usePhysics,
     usePhysicsTracker,
-    useLocalPlayer
+    useLocalPlayer,
+    useRenderer
   } = ctx;
 
   const app = useApp();
@@ -52,8 +53,7 @@ export default ctx => {
   const {gltfLoader, exrLoader} = useLoaders();
   // const renderer = useRenderer();
   const engine = useEngine();
-  const {webaverseRenderer} = engine;
-  const {renderer} = webaverseRenderer;
+  const renderer = engine ? engine.webaverseRenderer.renderer : useRenderer(); // companion app does not have engine
   const physics = usePhysics();
   const physicsTracker = usePhysicsTracker();
   
