@@ -36,7 +36,6 @@ const downQuaternion = new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3
 export default ctx => {
   const {
     useApp,
-    useEngine,
     useFrame,
     useActivate,
     useCleanup,
@@ -44,16 +43,14 @@ export default ctx => {
     useLoaders,
     usePhysics,
     usePhysicsTracker,
-    useLocalPlayer
+    useLocalPlayer,
+    useRenderer
   } = ctx;
 
   const app = useApp();
   
   const {gltfLoader, exrLoader} = useLoaders();
-  // const renderer = useRenderer();
-  const engine = useEngine();
-  const {webaverseRenderer} = engine;
-  const {renderer} = webaverseRenderer;
+  const renderer = useRenderer();
   const physics = usePhysics();
   const physicsTracker = usePhysicsTracker();
   
