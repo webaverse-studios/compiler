@@ -36,7 +36,6 @@ const downQuaternion = new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3
 export default ctx => {
   const {
     useApp,
-    useEngine,
     useFrame,
     useActivate,
     useCleanup,
@@ -51,9 +50,7 @@ export default ctx => {
   const app = useApp();
   
   const {gltfLoader, exrLoader} = useLoaders();
-  // const renderer = useRenderer();
-  const engine = useEngine();
-  const renderer = engine ? engine.webaverseRenderer.renderer : useRenderer(); // companion app does not have engine
+  const renderer = useRenderer();
   const physics = usePhysics();
   const physicsTracker = usePhysicsTracker();
   
